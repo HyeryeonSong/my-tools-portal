@@ -5,7 +5,7 @@ import Layout from "@/app/components/Layout";
 
 export default function DdayPage() {
   const [targetDate, setTargetDate] = useState("");
-  const [dday, setDday] = useState(null);
+  const [dday, setDday] = useState<number | null>(null);
 
   const calculateDday = () => {
     if (!targetDate) return;

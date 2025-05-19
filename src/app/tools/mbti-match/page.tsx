@@ -4,7 +4,25 @@ import Layout from "@/app/components/Layout";
 import { useState } from "react";
 import { getMbtiMatch } from "@/app/utils/mbtiMatch";
 
-const MBTI_LIST = [
+type MbtiType =
+  | "INTJ"
+  | "INTP"
+  | "ENTJ"
+  | "ENTP"
+  | "INFJ"
+  | "INFP"
+  | "ENFJ"
+  | "ENFP"
+  | "ISTJ"
+  | "ISFJ"
+  | "ESTJ"
+  | "ESFJ"
+  | "ISTP"
+  | "ISFP"
+  | "ESTP"
+  | "ESFP";
+
+const MBTI_LIST: MbtiType[] = [
   "INTJ",
   "INTP",
   "ENTJ",
@@ -24,15 +42,15 @@ const MBTI_LIST = [
 ];
 
 export default function MBTIMatchPage() {
-  const [myMbti, setMyMbti] = useState("INTJ");
-  const [theirMbti, setTheirMbti] = useState("ENFP");
+  const [myMbti, setMyMbti] = useState<MbtiType>("INTJ");
+  const [theirMbti, setTheirMbti] = useState<MbtiType>("ENFP");
   const [result, setResult] = useState<{
     score: number;
     description: string;
   } | null>(null);
 
   const handleMatch = () => {
-    setResult(getMbtiMatch(myMbti as any, theirMbti as any));
+    setResult(getMbtiMatch(myMbti, theirMbti));
   };
 
   return (
@@ -41,7 +59,10 @@ export default function MBTIMatchPage() {
       <p>본인의 MBTI와 상대방의 MBTI를 선택하세요!</p>
 
       <div style={{ display: "flex", gap: "1rem", margin: "1rem 0" }}>
-        <select value={myMbti} onChange={(e) => setMyMbti(e.target.value)}>
+        <select
+          value={myMbti}
+          onChange={(e) => setMyMbti(e.target.value as MbtiType)}
+        >
           {MBTI_LIST.map((type) => (
             <option key={type} value={type}>
               {type}
@@ -51,7 +72,7 @@ export default function MBTIMatchPage() {
 
         <select
           value={theirMbti}
-          onChange={(e) => setTheirMbti(e.target.value)}
+          onChange={(e) => setTheirMbti(e.target.value as MbtiType)}
         >
           {MBTI_LIST.map((type) => (
             <option key={type} value={type}>

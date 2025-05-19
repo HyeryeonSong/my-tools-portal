@@ -1,5 +1,5 @@
 // utils/mbtiMatch.ts
-type MBTI =
+type MbtiType =
   | "INTJ"
   | "INTP"
   | "ENTJ"
@@ -17,34 +17,11 @@ type MBTI =
   | "ESTP"
   | "ESFP";
 
-type MatchResult = {
-  score: number;
-  description: string;
-};
-
-export const getMbtiMatch = (mine: MBTI, partner: MBTI): MatchResult => {
-  const key = `${mine}-${partner}`;
-
-  const fakeMatchDB: Record<string, MatchResult> = {
-    "INTJ-ENFP": {
-      score: 95,
-      description: "반대 성향이지만 서로를 끌어당기는 운명적 케미!",
-    },
-    "ENFP-ISTJ": {
-      score: 60,
-      description: "감성파와 현실파의 충돌, 노력만이 답!",
-    },
-    "INTP-INTP": {
-      score: 70,
-      description: "대화는 잘 통하지만 연애는 혼자 하는 중.",
-    },
-    // 나머지 조합은 디폴트로
+export const getMbtiMatch = (type1: MbtiType, type2: MbtiType) => {
+  // 임시로 기본 궁합 점수와 설명을 반환
+  return {
+    score: 75,
+    description: `${type1}와(과) ${type2}의 궁합은 75점입니다. 
+    서로의 차이를 이해하고 존중하면 좋은 관계를 이어갈 수 있습니다.`,
   };
-
-  return (
-    fakeMatchDB[key] ?? {
-      score: Math.floor(Math.random() * 40) + 50,
-      description: "서로 알아가는 재미가 있는 조합이에요!",
-    }
-  );
 };
